@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#this script generates an RSA key pari and specifies the bits, passphrase and file name
+
+ssh-keygen -t rsa -b 4096 -f school -N betty
