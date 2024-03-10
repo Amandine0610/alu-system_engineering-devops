@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# Install and configure Nginx web server
-
 # Update package lists
 echo "Updating package lists..."
 apt-get update
@@ -27,6 +25,15 @@ EOF
 # Restart Nginx
 echo "Restarting Nginx..."
 service nginx restart
+
+# Allow Nginx HTTP traffic through the firewall
+echo "Allowing Nginx HTTP traffic through the firewall..."
+ufw allow 'Nginx HTTP'
+
+# Give user ownership to website files for easy editing
+echo "Giving user ownership to website files..."
+chown -R "$USER":"$USER" /var/www/html
+chmod -R 755 /var/www
 
 # Check if Nginx is running and listening on port 80
 echo "Checking Nginx status..."
