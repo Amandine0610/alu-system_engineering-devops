@@ -3,16 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 6rem;
+            margin-bottom: 0;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta:hover {
+            background-color: #555;
+        }
+
+        .image-container {
+            margin-bottom: 2rem;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <img src="error.jpg" alt="404 Error Image">
-        <h1>Oops! Ceci n'est pas une page</h1>
-        <p>Sorry, the page you are looking for could not be found.</p>
-        <a href="/">Go to Homepage</a>
+        <div class="image-container">
+            <img src="https://i.imgur.com/qIufhof.png" alt="404 Error">
+        </div>
+        <h1>404</h1>
+        <p>Ceci n'est pas une page</p>
+        <p>The page you're looking for doesn't exist.</p>
+        <a href="/" class="cta">Go Home</a>
     </div>
 </body>
 </html>
