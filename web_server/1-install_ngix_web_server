@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
 #setting up nginx server
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
-sudo service nginx restart
+# Update package index
+apt-get update -y
+
+# Install nginx
+apt-get install nginx -y
+
+# Replace default nginx index.html with custom content
+echo "Holberton School for the win!" > /usr/share/nginx/html/index.html
+
+# Check if nginx is running, if not, start it
+if ! ps aux | grep -q [n]ginx; then
+    /usr/sbin/nginx
+fi
+
+# Check if nginx is listening on port 80, if not, restart it
+if ! netstat -tuln | grep -q ':80 '; then
+    /usr/sbin/nginx -s stop
+    /usr/sbin/nginx
+fi
