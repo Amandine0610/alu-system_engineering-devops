@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
-# Install and configure Nginx web server
+# Configures a new ubuntu machine by installing
+# Nginx where it should be listening on port 80
+# Serve a page that would return a Hello World string
+#
 
-# Update package lists
-apt-get update
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+	 sudo apt-get install nginx -y
 
-# Install Nginx
-apt-get install -y nginx
+echo -e "\nSetting up some minor stuff.\n"
 
-# Create a custom Nginx index.html file
-cat << EOF > /var/www/html/index.html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Holberton School</title>
-</head>
-<body>
-    <h1>Holberton School for the win!</h1>
-</body>
-</html>
-EOF
+# starting nginx service
+sudo service nginx start
 
-# Restart Nginx
-service nginx restart
+# allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Print the status of Nginx
-status="$(service nginx status)"
-if [[ $status == *"active (running)"* ]]; then
-    echo "Nginx is running and listening on port 80."
-else
-    echo "Nginx failed to start."
-fi
+# Give the user ownership to website files for easy editing
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+# Backup default index
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating new index
+echo -e "Holberton School" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+# Restarting nginx
+sudo service nginx restart
+
+echo -e "\nCompleted. ✅\n"
