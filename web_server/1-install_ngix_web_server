@@ -1,27 +1,51 @@
 #!/usr/bin/env bash
-# Install and configure Nginx web server
 
 # Update package lists
+echo "Updating package lists..."
 apt-get update
 
 # Install Nginx
+echo "Installing Nginx..."
 apt-get install -y nginx
 
 # Create a custom Nginx index.html file
-echo "Holberton School" > /var/www/html/index.html
+echo "Creating custom index.html file..."
+cat << EOF > /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Holberton School</title>
+</head>
+<body>
+    <h1>Holberton School</h1>
+</body>
+</html>
+EOF
 
-# Restart Nginx without using systemctl
+# Restart Nginx
+echo "Restarting Nginx..."
 service nginx restart
 
+# Allow Nginx HTTP traffic through the firewall
+echo "Allowing Nginx HTTP traffic through the firewall..."
+ufw allow 'Nginx HTTP'
+
+# Give user ownership to website files for easy editing
+echo "Giving user ownership to website files..."
+chown -R "$USER":"$USER" /var/www/html
+chmod -R 755 /var/www
+
 # Check if Nginx is running and listening on port 80
-if [ "$(lsof -i :80 | grep nginx)" ]; then
+echo "Checking Nginx status..."
+if systemctl is-active --quiet nginx; then
     echo "Nginx is running and listening on port 80."
 else
-    echo "Nginx failed to start or is not listening on port 80."
+    echo "Nginx failed to start."
     exit 1
 fi
 
 # Check if the root page contains the required string
+echo "Checking the root page content..."
 response=$(curl -sI http://localhost | grep "Holberton School")
 if [ -n "$response" ]; then
     echo "The root page contains the required string: 'Holberton School'"
