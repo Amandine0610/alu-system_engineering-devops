@@ -1,0 +1,1 @@
+This repository contains the solution to a web stack debugging task aimed at optimizing the performance of a web server setup featuring Nginx. The task involves identifying and resolving issues causing a significant number of failed requests during benchmarking using ApacheBench.
